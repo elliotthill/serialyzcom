@@ -1,12 +1,13 @@
 import pug from 'pug';
 import { jsx as _jsx } from "react/jsx-runtime";
 import { renderToString } from 'react-dom/server';
+import {Response} from 'express';
 import React from 'react';
 
-export const hybridRenderView = (template: string, app: React.JSX.Element | React.ElementType<any, any>,
+export const hybridRenderView = (res: Response, template: string, app: React.JSX.Element | React.ElementType<any, any>,
                            templateLocals: any, appLocals: Record<string, unknown>) => {
 
-
+    templateLocals = {...templateLocals, ...res.locals};
     const pugRender = pug.compileFile("./client/views/"+template);
     const html = pugRender(templateLocals);
 
@@ -15,10 +16,18 @@ export const hybridRenderView = (template: string, app: React.JSX.Element | Reac
     return htmlRender;
 }
 
-//Render the server and tell the client not to render
-export const serverRenderView = (template: string, app: React.JSX.Element | React.ElementType<any, any>,
+export const serverRenderView = (res: Response, template: string, app: React.JSX.Element | React.ElementType<any, any>,
                                  templateLocals: any, appLocals: Record<string, unknown>) => {
 
-    templateLocals["bodyClass"] = "static";
-    return hybridRenderView(template, app, templateLocals, appLocals);
+    templateLocals["bodyClass"] = "static"; //Tell the client not to render
+    return hybridRenderView(res, template, app, templateLocals, appLocals);
 }
+
+export const clientRenderView = (res:Response, template: string, templateLocals: any) => {
+
+    templateLocals = {...templateLocals, ...res.locals};
+    const pugRender = pug.compileFile("./client/views/"+template);
+    const html = pugRender(templateLocals);
+
+    return html;
+};

@@ -11,8 +11,8 @@ renderCache.set_store(models.RenderCacheStore, "findByPk", "upsert");
 
 export function Index (req: Request, res: Response, next: NextFunction) {
 
-    const htmlRender = serverRenderView("index.pug", IndexReact,
-                        {title:"Title",version:"1"}, {data:"React data"});
+    const htmlRender = serverRenderView(res, "index.pug", IndexReact,
+                        {title:"Title",version:"1", canonical:"/"}, {data:"React data"});
 
     renderCache.push(req.path, htmlRender);
     res.send(htmlRender);

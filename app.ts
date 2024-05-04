@@ -75,7 +75,7 @@ app.use(passport.session());
 //Expose passport user info in all views
 app.use(function(req, res, next) {
     res.locals.user = req.user;
-    console.log("User added to template");
+    res.locals.baseURL = "https://jsondroid.com";
     next();
 });
 

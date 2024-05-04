@@ -49,7 +49,8 @@ function App({data}:{data:any}) {
             <>
             <div className="container mx-auto py-4 pb-12">
                 <h1 className="font-bold text-4xl md:text-5xl text-center text-slate-800 pb-2 px-4 lg:px-0"><a href="/">JSONdroid</a><small className="font-medium text-sm">.com</small></h1>
-                <h3 className="font-medium text-lg text-center text-slate-600"><a href="/">Using computer vision </a></h3>
+                <h3 className="font-medium text-2xl text-center text-slate-600"><a href="/">Access the web as a JSON document</a></h3>
+                <h5>JSONdroid uses Computer Vision and Parsing techniques to understand the page rather than just scrape it.</h5>
             </div>
             <div className='flex mb-4'>
                 <div className='w-2/5 h12'>
