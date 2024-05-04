@@ -15,3 +15,11 @@ export function Login (req: Request, res: Response, next: NextFunction) {
     //renderCache.push(req.path, htmlRender);
     res.send(htmlRender);
 }
+
+export function Register (req: Request, res: Response, next: NextFunction) {
+
+    const htmlRender = clientRenderView(res, "index.pug", {canonical:'/login'});
+
+    //renderCache.push(req.path, htmlRender);
+    res.send(htmlRender);
+}

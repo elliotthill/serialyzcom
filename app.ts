@@ -20,7 +20,7 @@ import './server/config/passport.js';
 import routes from './server/routes/index.js';
 
 //Auth API - MUST BE UNCACHED
-import user from './server/routes/user.js';
+import user from './server/routes/api/user.js';
 
 const app = express();
 import 'dotenv/config'
@@ -74,6 +74,8 @@ app.use(passport.session());
 
 //Expose passport user info in all views
 app.use(function(req, res, next) {
+    res.locals.version = process.env.npm_package_version;
+    res.locals.title = process.env.npm_package_name;
     res.locals.user = req.user;
     res.locals.baseURL = "https://jsondroid.com";
     next();

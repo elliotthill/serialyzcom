@@ -7,7 +7,7 @@ import React from 'react';
 export const hybridRenderView = (res: Response, template: string, app: React.JSX.Element | React.ElementType<any, any>,
                            templateLocals: any, appLocals: Record<string, unknown>) => {
 
-    templateLocals = {...templateLocals, ...res.locals};
+    templateLocals = {...res.locals, ...templateLocals};
     const pugRender = pug.compileFile("./client/views/"+template);
     const html = pugRender(templateLocals);
 
@@ -25,7 +25,7 @@ export const serverRenderView = (res: Response, template: string, app: React.JSX
 
 export const clientRenderView = (res:Response, template: string, templateLocals: any) => {
 
-    templateLocals = {...templateLocals, ...res.locals};
+    templateLocals = {...res.locals, ...templateLocals};
     const pugRender = pug.compileFile("./client/views/"+template);
     const html = pugRender(templateLocals);
 

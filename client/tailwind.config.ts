@@ -1,22 +1,24 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import colors from 'tailwindcss/colors';
+
+export default {
   content: [
-      "./views/*.pug",
-      "./assets/js/*.tsx",
-      "./assets/js/components/*.tsx",
-      "./assets/js/ui/*.tsx",
-      './node_modules/flowbite-react/lib/esm/**/*.js',
-      "../server/views/*.tsx"
+      "./views/**/*.pug",
+      "./assets/js/**/*.tsx",
+      "../server/views/**/*.tsx",
+      './node_modules/flowbite-react/lib/esm/**/*.js'
   ],
   theme: {
     extend: {
       colors: {
         'sunrise': '#f4ede4',
+        primary: colors.blue
       },
     },
+
+
+
   },
   plugins: [
     require('flowbite/plugin')
   ]
 }
-

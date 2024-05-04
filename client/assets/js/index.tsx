@@ -1,5 +1,6 @@
 import App from "./app.js";
 import Login from "./login.js";
+import Register from "./register.js";
 
 import {UserProvider} from "./services/user-context.js";
 
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/register',
+    element: <Register />
   }
 ]);
 

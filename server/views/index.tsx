@@ -47,14 +47,19 @@ const jsonExample = `
 function App({data}:{data:any}) {
     return (
             <>
-            <div className="container mx-auto py-4 pb-12">
-                <h1 className="font-bold text-4xl md:text-5xl text-center text-slate-800 pb-2 px-4 lg:px-0"><a href="/">JSONdroid</a><small className="font-medium text-sm">.com</small></h1>
-                <h3 className="font-medium text-2xl text-center text-slate-600"><a href="/">Access the web as a JSON document</a></h3>
+            <div className="container mx-auto py-12 pb-12">
+                <h1 className="font-bold text-4xl md:text-5xl text-center text-slate-800 pb-4 px-4">
+                    Access the web as a JSON document
+                </h1>
+
+
+
+                <h3 className="font-medium text-2xl text-center text-slate-600"><a href="/">Powered by Computer Vision</a></h3>
                 <h5>JSONdroid uses Computer Vision and Parsing techniques to understand the page rather than just scrape it.</h5>
             </div>
             <div className='flex mb-4'>
                 <div className='w-2/5 h12'>
-                    <h3 className='text-lg font-medium pb-4 text-center'>Unstructured Data</h3>
+                    <h3 className='text-2xl font-medium pb-4 text-center'>Unstructured Data</h3>
                     <Codeblock code={htmlExample} lang="HTML" />
                     <br />
                     <img src="/assets/images/reddit.jpg" />
@@ -63,7 +68,7 @@ function App({data}:{data:any}) {
                     {'==>'}
                 </div>
                 <div className='w-2/5 h12'>
-                    <h3 className='text-lg font-medium pb-4 text-center'>Structured Data</h3>
+                    <h3 className='text-2xl font-medium pb-4 text-center'>Structured Data</h3>
                     <Codeblock code={jsonExample} lang="JSON" />
                 </div>
             </div>
