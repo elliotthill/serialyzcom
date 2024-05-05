@@ -3,7 +3,7 @@ import Strategies from 'passport-local';
 let LocalStrategy = Strategies.Strategy;
 
 import {models, sequelize} from "../models/index.js";
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt';
 
 
 // Serialize Sessions

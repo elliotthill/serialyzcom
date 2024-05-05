@@ -12,14 +12,12 @@ import {
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
 
     declare id: CreationOptional<number>;
-    declare username: string;
     declare password: string;
     declare email: string;
-    declare registered: string
+    declare registered: CreationOptional<string>;
 
     format()  {
-        //@ts-ignore
-        return [this.username, this.email].join(',');
+        return [this.id, this.email].join(',');
     }
 }
 
@@ -32,11 +30,6 @@ export default function (sequelize: Sequelize) {
             autoIncrement: true,
             primaryKey: true
         },
-        username: {
-            type: DataTypes.STRING,
-            unique: true,
-            allowNull: false
-        },
         password: {
             type: DataTypes.STRING,
             allowNull: false
@@ -44,6 +37,7 @@ export default function (sequelize: Sequelize) {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 isEmail: true
             }

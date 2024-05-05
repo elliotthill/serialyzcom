@@ -14,7 +14,7 @@ export function Index (req: Request, res: Response, next: NextFunction) {
     const htmlRender = serverRenderView(res, "index.pug", IndexReact,
                         {title:"Title",version:"1", canonical:"/"}, {data:"React data"});
 
-    renderCache.push(req.path, htmlRender);
+    renderCache.push(req, htmlRender);
     res.send(htmlRender);
 }
 

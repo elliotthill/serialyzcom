@@ -55,9 +55,11 @@ class RenderCache {
     }
 
 
-    push = (path: string, body: string): Promise<boolean> => {
-
-        return this.store[this.upsertFunc]({id:path, html: body});
+    push = (req: Request, body: string): Promise<boolean> => {
+        if (!req.isAuthenticated())
+            return this.store[this.upsertFunc]({id:req.path, html: body});
+        else
+            return Promise.resolve(false);
     }
 
 }

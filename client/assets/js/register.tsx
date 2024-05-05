@@ -8,16 +8,16 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
   const [error, setError] = useState<boolean|string>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
 
   async function submit() {
-    console.log("Sent login info");
-    console.log(email);
-    console.log(password);
 
     const valid = validate();
     if (!valid)
         return;
+
+    setSubmitting(true);
 
     const response = await fetch('/api/user/register', {
       method: "POST",
@@ -68,10 +68,18 @@ export default function Register() {
   return (
     <>
       <section className="py-24">
+
+        <div className={submitting ? "flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 group" : "hidden"}>
+            <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 py-12">
+                <LoadingSpinner loading={submitting} />
+            </div>
+        </div>
+
+        <div className={submitting ? "hidden" : ""}>
         <form className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 group" noValidate>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-             <LoadingSpinner loading={true} />
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Register for an account
               </h1>
@@ -127,6 +135,7 @@ export default function Register() {
             </div>
           </div>
         </form>
+        </div>
       </section>
     </>
   );

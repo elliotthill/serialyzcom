@@ -76,7 +76,11 @@ app.use(passport.session());
 app.use(function(req, res, next) {
     res.locals.version = process.env.npm_package_version;
     res.locals.title = process.env.npm_package_name;
-    res.locals.user = req.user;
+
+    if (req.isAuthenticated()) {
+        res.locals.user = req.user;
+        res.locals.authed = true;
+    }
     res.locals.baseURL = "https://jsondroid.com";
     next();
 });

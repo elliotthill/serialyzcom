@@ -70,8 +70,12 @@ sequelize.sync().then(function () {
             : 'port ' + addr.port;
             debug('Listening on ' + bind);
     }
-});
 
+    console.log("Database synced");
+
+}).catch((err)=>{
+    console.error(err);
+});
 
 /**
  * Normalize a port into a number, string, or false.
