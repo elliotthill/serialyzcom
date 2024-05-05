@@ -32,26 +32,23 @@ passport.use(new LocalStrategy({
     },
     function (email, password, done) {
 
-        console.log(email);
-        console.log(password);
-
-
         models.User.findOne({where:{ email: email}}).then((user) => {
 
             if (!user) {
                 return done(null, false);
             }
 
-            if (!bcrypt.compareSync(password, user.password)) {
-                return done(null, false);
-            }
+            bcrypt.compare(password, user.password).then((success) => {
 
-            return done(null, user);
+                if (!success)
+                    return done(null, false);
+
+                return done(null, user);
+            });
 
         }).catch((err) => {
             console.log(err);
             return done(err);
-
         });
     }
 ));

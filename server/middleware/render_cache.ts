@@ -19,7 +19,6 @@ class RenderCache {
     constructor() {
         if (!instance){
             instance = this;
-            console.log("Rendercache constructor");
         }
         return instance;
     }

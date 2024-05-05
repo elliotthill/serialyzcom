@@ -6,10 +6,19 @@ import IndexReact from '../views/index.js';
 
 import {models, sequelize} from '../models/index.js';
 import renderCache from '../middleware/render_cache.js';
+import passport, { Passport } from 'passport';
+import { Strategy } from 'passport-local';
+import { User } from '../models/user.js';
 renderCache.set_store(models.RenderCacheStore, "findByPk", "upsert");
 
 
 export function Login (req: Request, res: Response, next: NextFunction) {
+
+    if (req.isAuthenticated()) {
+        //You're already logged in
+        res.redirect("/");
+        return;
+    }
 
     const htmlRender = clientRenderView(res, "index.pug", {canonical:'/login'});
 
@@ -19,10 +28,26 @@ export function Login (req: Request, res: Response, next: NextFunction) {
 
 export function Register (req: Request, res: Response, next: NextFunction) {
 
+    if (req.isAuthenticated()) {
+        //You're already logged in
+        res.redirect("/");
+        return;
+    }
+
     const htmlRender = clientRenderView(res, "index.pug", {canonical:'/login'});
 
     renderCache.push(req, htmlRender);
     res.send(htmlRender);
+}
+
+export function Logout (req: Request, res: Response) {
+
+    req.logout(null!, () => {
+
+        res.redirect("/");
+        return;
+    });
+
 }
 
 export async function DoRegister (req: Request, res: Response) {
@@ -47,17 +72,28 @@ export async function DoRegister (req: Request, res: Response) {
             return;
         }
 
-        models.User.build({email: req.body.email, password: hash})
-        .save()
-        .then(function() {
+        models.User.create({email: req.body.email, password: hash})
+        .then((registeredUser) => {
 
-                res.json({"status":"success"});
-                })
-        .catch(function(err) {
+                req.login(registeredUser, (err) => {
+
+                    if (err) {
+                        console.error(`Couldn't authenticate registered user ${err}`);
+                        res.status(500);
+                        return;
+                    }
+                    res.json({"status":"success"});
+                    return;
+
+                });
+
+        })
+        .catch((err) => {
 
                 console.warn(err);
-                res.json({"status": "error", "error": "Please enter a valid email address"});
-                });
+                res.status(500).json({"status": "error", "error": "Please enter a valid email address"});
+                return;
+        });
 
     });
 

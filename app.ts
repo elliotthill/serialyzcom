@@ -18,6 +18,7 @@ import './server/config/passport.js';
 
 //SPA entry
 import routes from './server/routes/index.js';
+import dashboard from './server/routes/dashboard/index.js';
 
 //Auth API - MUST BE UNCACHED
 import user from './server/routes/api/user.js';
@@ -32,6 +33,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import compression from 'compression';
+app.use(compression());
 
 /*
  * Security
@@ -55,7 +58,7 @@ import {models, sequelize} from './server/models/index.js';
 import { on } from 'events';
 
 app.use(session({
-    secret: '3qwxa8NRIj5oxoY',
+    secret: process.env.COOKIE_SECRET!,
     cookie: {
         expires: new Date(today.getFullYear() + 10, today.getMonth(), today.getDate())
     },
@@ -119,13 +122,14 @@ app.get('/robots.txt', function (req: Request, res: Response) {
 app.use('/', routes);
 app.use('/register', routes);
 app.use('/login', routes);
-app.use('/jobs/', routes);
+app.use('/try', routes);
+
+app.use('/dashboard/', dashboard);
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
     let err:any = new Error('Not Found');
     err.status = 404;
-
     next(err);
 });
 
@@ -135,7 +139,7 @@ if (ENV === 'development' || ENV === 'docker') {
 
     console.log('RUNNING IN DEV MODE....');
 
-    app.set('view cache', true);
+    app.set('view cache', false);
 
     // development error handler
     // will print stacktrace
@@ -153,15 +157,13 @@ if (ENV === 'development' || ENV === 'docker') {
 
 } else if (ENV === 'production' || ENV === 'staging' ) {
 
-    if (ENV === 'production'){
-        app.set('view cache', true);
-    }
+    app.set('view cache', false);
 
     // no stacktraces leaked to user
     app.use(function (err:any, req: Request, res: Response, next: NextFunction) {
         res.status(err.status || 500);
         res.render('error', {
-            message: 'OOPS. You broke something.',
+            message: 'Uh-oh. Something went wrong.',
             error: {}
         });
     });

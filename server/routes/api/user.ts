@@ -2,7 +2,7 @@ import express, {Request, Response, NextFunction} from 'express';
 import Router from 'express-promise-router';
 const router = Router();
 import {User} from '../../models/user.js';
-import {DoRegister} from '../../controllers/auth.js';
+import {DoRegister, Logout} from '../../controllers/auth.js';
 
 router.get('/me', function (req: Request, res: Response) {
 
@@ -18,6 +18,7 @@ router.get('/me', function (req: Request, res: Response) {
 });
 
 router.post('/register', DoRegister);
+
 
 
 export default router;
