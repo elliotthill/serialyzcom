@@ -1,14 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { env } from "process";
 
-//Singleton for performance
 let instance : RenderCache;
 
 /*
  *
- * RenderCache is the express middleware to serve up
- * cached pages from any store (redis, orm, db, memory)
- *
+ * RenderCache is the express middleware to serve up cached pages from any store (redis, orm, db, memory)
+ * Auth'd users bypass this cache
  */
 class RenderCache {
 
