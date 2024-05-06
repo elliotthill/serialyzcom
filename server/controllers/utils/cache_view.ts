@@ -15,7 +15,7 @@ let compiledTemplates:TemplateHashMap = {};
 export const getCachedTemplate = (template: string) : pug.compileTemplate =>  {
 
     let pugRender: pug.compileTemplate;
-    if (compiledTemplates[template]) {
+    if (compiledTemplates[template] && process.env.NODE_ENV !== 'development') {
         return compiledTemplates[template];
     }
     else {
