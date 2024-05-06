@@ -11,7 +11,13 @@ export default {
     extend: {
       colors: {
         'sunrise': '#f4ede4',
-        primary: colors.blue
+        primary: {
+            500: "#2293e8",
+            600: "#178feb",//Color from logo
+            700: "#1380d4",
+            800: "#0a4e83",
+
+        }
       },
     },
 
