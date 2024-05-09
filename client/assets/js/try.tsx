@@ -2,15 +2,43 @@
 
 import React, {FormEvent, FormEventHandler, useState} from "react";
 import { Progress } from "flowbite-react";
+import {Codeblock} from './components/codeblock.js';
 
 export function Try() {
 
     const [progress, setProgress] = useState(0);
     const [url, setURL] = useState<string|null>(null);
+    const [urlError, setURLError] = useState<string|null>(null);
 
-    const submitUrl = (e: FormEvent) => {
+
+    const [output, setOutput] = useState<string|null>(null);
+
+    const submitUrl = async (e: FormEvent) => {
+
         e.preventDefault();
+        setURLError(null);
+
+        try {
+            const userURL = new URL(url!);
+        } catch(e){
+            setURLError("Please provide a valid URL")
+            return;
+        }
         console.log(url);
+
+        const response = await fetch("/api/srv/try", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({url})
+        })
+
+
+        const json = await response.json()
+        if (json)
+        setOutput(JSON.stringify(json, null, 2))
+        console.log(response);
     }
     return (
         <div>
@@ -25,15 +53,23 @@ export function Try() {
                 </div>
                 <div>
                     <form className="flex items-center max-w-screen-xl mx-auto lg:px-64" onSubmit={submitUrl}>
-                        <label htmlFor="simple-search" className="sr-only">Search</label>
+
                         <div className="relative basis-4/5">
-                            <input type="url" id="simple-search" onChange={(event) => {setURL(event.target.value)}}
+                            <label htmlFor="simple-search" className="sr-only">URL input</label>
+                            <input type="url" id="simple-search" onChange={(event) => {
+                                setURL(event.target.value)
+                            }}
                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-l-lg
                                focus:ring-blue-500 focus:border-blue-500 block w-full p-3  dark:bg-gray-700"
                                    placeholder="http://mydomain.com" required/>
+                            <span
+                                className="absolute mt-2 text-sm text-red-500">
+                            {urlError}
+                            </span>
+
                         </div>
                         <div className="relative basis-1/5">
-                            <button type="submit" onClick={submitUrl}
+                        <button type="submit" onClick={submitUrl}
                                     className="w-full py-3 px-10 text-xl font-medium text-white bg-primary-600 border rounded-r-lg
                             border-primary-700 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-blue-300">
 
@@ -44,19 +80,24 @@ export function Try() {
                     </form>
                 </div>
             </section>
-            <section suppressHydrationWarning={true}>
+            <section className="w-full" suppressHydrationWarning={true}>
                 <div className="w-full mx-auto lg:px-64">
                     <Progress progress={progress} color="dark" suppressHydrationWarning={true}/>
                 </div>
-                <div className="flex flex-row py-12">
-                    <div className="basis-2/5">
+                <div className="py-12 w-full">
+                    <div className="float-left w-2/5">
                         <h5 className="text-center font-medium text-lg">Source</h5>
+
+
                     </div>
-                    <div className="basis-1/5 text-center">
+                    <div className="float-left w-1/5 text-center">
                         ={">"}
                     </div>
-                    <div className="basis-2/5">
+                    <div className="float-left w-2/5">
                         <h5 className="text-center font-medium text-lg">Output</h5>
+                        <div className="w-full">
+                            <Codeblock code={output} lang="JSON" />
+                        </div>
                     </div>
                 </div>
 

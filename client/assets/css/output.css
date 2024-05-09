@@ -1168,6 +1168,10 @@ input[type="range"]::-ms-fill-lower {
   z-index: auto;
 }
 
+.float-left {
+  float: left;
+}
+
 .-m-1 {
   margin: -0.25rem;
 }
@@ -5459,11 +5463,6 @@ html {
 :is(.dark .dark\:focus\:text-white:focus) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-:is(.dark .dark\:focus\:ring-blue-500:focus) {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(63 131 248 / var(--tw-ring-opacity));
 }
 
 :is(.dark .dark\:focus\:ring-blue-700:focus) {

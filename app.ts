@@ -22,6 +22,8 @@ import dashboard from './server/routes/dashboard/index.js';
 
 //Auth API - MUST BE UNCACHED
 import user from './server/routes/api/user.js';
+import srv from "./server/routes/api/srv.js";
+import secret from "./server/routes/secret/index.js";
 
 const app = express();
 import 'dotenv/config'
@@ -102,7 +104,7 @@ app.post('/api/user/login',
         res.json({"meta":"success"})
     });
 
-app.use('/api/user', user);
+
 
 app.get('/robots.txt', function (req: Request, res: Response) {
 
@@ -119,6 +121,10 @@ app.get('/robots.txt', function (req: Request, res: Response) {
 /*
  * Routes
  */
+app.use('/api/user', user);
+app.use('/api/srv', srv);
+app.use('/api/secret', secret);
+
 app.use('/', routes);
 app.use('/register', routes);
 app.use('/login', routes);

@@ -15,12 +15,15 @@ export const sequelize = new Sequelize(config.database, config.username, config.
  */
 import userInit, {User} from './user.js';
 import renderCacheStoreInit, {RenderCacheStore} from "./render_cache.js";
+import jobInit, {Job} from "./job.js";
 
 userInit(sequelize);
 renderCacheStoreInit(sequelize);
+jobInit(sequelize);
 
 export const models = {
     User,
-    RenderCacheStore
+    RenderCacheStore,
+    Job
 };
 

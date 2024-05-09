@@ -34,7 +34,7 @@ class RenderCache {
     middleware = async (req: Request,res: Response, next: NextFunction) => {
 
         //Logged in users don't see the cache
-        if (req.query.nocache || req.isAuthenticated()) {
+        if (req.query.nocache || req.isAuthenticated() || req.originalUrl.includes('/api/')) {
             next();
             return;
         }
