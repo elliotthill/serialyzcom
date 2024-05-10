@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react"
 
-import { Spinner } from 'flowbite-react';
+import {Spinner} from "flowbite-react"
 
-export default function loading({loading}: {loading:boolean}) {
+export default function loading({loading}: {loading: boolean}) {
     if (loading) {
-      return (
-        <div className="text-center block w-full">
-          <Spinner aria-label="Default status example" size="xl"/>
-        </div>
-      );
+        return (
+            <div className="text-center block w-full">
+                <Spinner aria-label="Default status example" size="xl" />
+            </div>
+        )
     }
-
 }

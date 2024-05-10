@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+import {Request, Response, NextFunction} from "express"
 
-let instance : RenderCache;
+let instance: RenderCache
 
 /*
  *
@@ -8,56 +8,49 @@ let instance : RenderCache;
  * Auth'd users bypass this cache
  */
 class RenderCache {
-
-    private store: any;                         //ORM or mock object for testing
-    private findOneFunc: string = "findByPk";   //Should be an ORM function to return one row by PATH
-    private upsertFunc: string = "upsert";     //e.g. findByPk for sequelize, get for redis
+    private store: any //ORM or mock object for testing
+    private findOneFunc: string = "findByPk" //Should be an ORM function to return one row by PATH
+    private upsertFunc: string = "upsert" //e.g. findByPk for sequelize, get for redis
 
     constructor() {
-        if (!instance){
-            instance = this;
+        if (!instance) {
+            instance = this
         }
-        return instance;
+        return instance
     }
 
-    set_store = (store:any, findOneFunc: string, upsertFunc: string) => {
-
+    set_store = (store: any, findOneFunc: string, upsertFunc: string) => {
         if (!store || !findOneFunc || !upsertFunc)
             throw new Error(`Could not initialize RenderCache.
-                                Store, findOneFunc, and upsertFunc is required`);
+                                Store, findOneFunc, and upsertFunc is required`)
 
-        this.store = store;
-        this.findOneFunc = findOneFunc;
-        this.upsertFunc = upsertFunc;
+        this.store = store
+        this.findOneFunc = findOneFunc
+        this.upsertFunc = upsertFunc
     }
 
-    middleware = async (req: Request,res: Response, next: NextFunction) => {
-
+    middleware = async (req: Request, res: Response, next: NextFunction) => {
         //Logged in users don't see the cache
-        if (req.query.nocache || req.isAuthenticated() || req.originalUrl.includes('/api/')) {
-            next();
-            return;
+        if (req.query.nocache || req.isAuthenticated() || req.originalUrl.includes("/api/")) {
+            next()
+            return
         }
 
-        const cache = await this.store[this.findOneFunc](req.path);
+        const cache = await this.store[this.findOneFunc](req.path)
 
         if (cache === null) {
-            next();
-            return;
+            next()
+            return
         }
 
-        res.send(cache.html+"<!-- cached -->");
-        return;
+        res.send(cache.html + "<!-- cached -->")
+        return
     }
-
 
     push = (req: Request, body: string): Promise<boolean> => {
-        if (!req.isAuthenticated())
-            return this.store[this.upsertFunc]({id:req.path, html: body});
-        else
-            return Promise.resolve(false);
+        if (!req.isAuthenticated()) return this.store[this.upsertFunc]({id: req.path, html: body})
+        else return Promise.resolve(false)
     }
-
 }
 
 export default new RenderCache()

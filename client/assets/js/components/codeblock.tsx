@@ -1,8 +1,7 @@
-import React from 'react';
+import React from "react"
 
-export function Codeblock({code, lang}: {code:string | null, lang:string}) {
-    if (!code)
-        return;
+export function Codeblock({code, lang}: {code: string | null; lang: string}) {
+    if (!code) return
 
     return (
         <>
@@ -12,13 +11,10 @@ export function Codeblock({code, lang}: {code:string | null, lang:string}) {
                         <span className="codeblock-language">{lang}</span>
                     </header>
                     <pre className="codeblock-pre text-xs whitespace-pre-wrap break-all p-4 pt-1">
-                        <code className="codeblock-code language-html lineNumbers">
-                        {code}
-                        </code>
+                        <code className="codeblock-code language-html lineNumbers">{code}</code>
                     </pre>
                 </div>
             </div>
         </>
     )
-
 }
