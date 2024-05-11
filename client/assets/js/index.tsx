@@ -2,7 +2,7 @@ import App from "./app.js"
 import Login from "./login.js"
 import Register from "./register.js"
 import {Dashboard} from "./dashboard.js"
-import {Try} from "./try.js"
+import {TestDrive} from "./test_drive.js"
 import {UserProvider} from "./services/user-context.js"
 
 import ReactDOM, {hydrateRoot} from "react-dom/client"
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
         element: <Dashboard />
     },
     {
-        path: "/try",
-        element: <Try />
+        path: "/test-drive",
+        element: <TestDrive />
     }
 ])
 

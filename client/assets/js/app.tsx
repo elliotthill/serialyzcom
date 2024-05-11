@@ -56,9 +56,9 @@ function App({data}: {data: any}) {
                 </h3>
                 <div className="text-center">
                     <a
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300
+                        className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-blue-300
                 font-medium text-xl rounded-lg text-sm mx-4 px-4 py-2 text-center"
-                        href="/try"
+                        href="/test-drive"
                     >
                         Test Drive!
                     </a>

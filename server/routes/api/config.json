@@ -1,0 +1,5 @@
+{
+    "TRY_POLLTIME_MS": 200,
+    "TRY_START_POLL_MS": 700,
+    "TRY_TIMEOUT_MS": 10000
+}

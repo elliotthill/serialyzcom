@@ -3,6 +3,7 @@ import Strategies from "passport-local"
 let LocalStrategy = Strategies.Strategy
 
 import {models, sequelize} from "../models/index.js"
+import {User} from "../models/user.js";
 import bcrypt from "bcrypt"
 
 // Serialize Sessions
@@ -11,12 +12,8 @@ passport.serializeUser(function (user, done) {
 })
 
 //Deserialize Sessions
-passport.deserializeUser(function (user: Express.User, done) {
-    models.User.findOne({
-        where: {
-            id: user.id
-        }
-    })
+passport.deserializeUser(function (user: User, done) {
+    models.User.findByPk(user.id)
         .then(function (user) {
             done(null, user)
         })
@@ -52,3 +49,4 @@ passport.use(
         }
     )
 )
+

@@ -3,6 +3,7 @@ import Router from "express-promise-router"
 const router = Router()
 import {User} from "../../models/user.js"
 import {DoRegister, Logout} from "../../controllers/auth.js"
+import passport from "passport";
 
 router.get("/me", function (req: Request, res: Response) {
     if (req.isAuthenticated()) {
@@ -14,5 +15,6 @@ router.get("/me", function (req: Request, res: Response) {
 })
 
 router.post("/register", DoRegister)
+
 
 export default router

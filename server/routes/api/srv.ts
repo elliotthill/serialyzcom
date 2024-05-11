@@ -4,13 +4,21 @@ import {models, sequelize} from "../../models/index.js"
 import {Job} from "../../models/job.js"
 import {QueryTypes} from "sequelize"
 const router = Router()
+import config from "./config.json" assert {type: "json"}
 
-router.post("/try", async function (req: Request, res: Response) {
+router.post("/test-drive", async function (req: Request, res: Response) {
     const url: string = req.body.url
     const jobId = await models.Job.create({url: url})
 
+    let pollTime = 0
+
     //Wait until job completes
     const poll = async () => {
+        pollTime += config.TRY_POLLTIME_MS
+        if (pollTime > config.TRY_TIMEOUT_MS) {
+            res.status(500).send()
+        }
+
         let job = await sequelize.query<Job>(
             `
         SELECT id, url, status, structure
@@ -25,10 +33,10 @@ router.post("/try", async function (req: Request, res: Response) {
         )
 
         if (job) res.json(job)
-        else setTimeout(poll, 200)
+        else setTimeout(poll, config.TRY_POLLTIME_MS)
     }
 
-    setTimeout(poll, 200)
+    setTimeout(poll, config.TRY_START_POLL_MS)
 })
 
 export default router

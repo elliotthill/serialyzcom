@@ -1,7 +1,7 @@
 import express, {Request, Response, NextFunction} from "express"
 import bcrypt from "bcrypt"
 
-import {clientRenderView, hybridRenderView, serverRenderView} from "../controllers/utils/render_view.js"
+import {clientRenderView, hybridRenderView, serverRenderView} from "./utils/render_view.js"
 import IndexReact from "../views/index.js"
 
 import {models, sequelize} from "../models/index.js"

@@ -16,15 +16,6 @@ import bodyParser from "body-parser"
 import passport from "passport"
 import "./server/config/passport.js"
 
-//SPA entry
-import routes from "./server/routes/index.js"
-import dashboard from "./server/routes/dashboard/index.js"
-
-//Auth API - MUST BE UNCACHED
-import user from "./server/routes/api/user.js"
-import srv from "./server/routes/api/srv.js"
-import secret from "./server/routes/secret/index.js"
-
 const app = express()
 import "dotenv/config"
 const ENV = env.NODE_ENV
@@ -56,7 +47,6 @@ app.use(cookieParser())
 
 let today = new Date()
 import {models, sequelize} from "./server/models/index.js"
-import {on} from "events"
 
 app.use(
     session({
@@ -75,6 +65,9 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
+app.post("/api/user/login", passport.authenticate("local"), function (req: Request, res: Response) {
+    res.json({meta: "success"})
+})
 
 //Expose passport user info in all views
 app.use(function (req, res, next) {
@@ -97,10 +90,6 @@ import {env} from "process"
 renderCache.set_store(models.RenderCacheStore, "findByPk", "upsert")
 app.use(renderCache.middleware)
 
-app.post("/api/user/login", passport.authenticate("local"), function (req: Request, res: Response) {
-    res.json({meta: "success"})
-})
-
 app.get("/robots.txt", function (req: Request, res: Response) {
     res.type("text/plain")
 
@@ -111,19 +100,8 @@ app.get("/robots.txt", function (req: Request, res: Response) {
     }
 })
 
-/*
- * Routes
- */
-app.use("/api/user", user)
-app.use("/api/srv", srv)
-app.use("/api/secret", secret)
-
-app.use("/", routes)
-app.use("/register", routes)
-app.use("/login", routes)
-app.use("/try", routes)
-
-app.use("/dashboard/", dashboard)
+import defineRoutes from "./server/routes/routes.js"
+defineRoutes(app)
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {

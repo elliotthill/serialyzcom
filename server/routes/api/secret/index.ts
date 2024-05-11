@@ -1,9 +1,9 @@
 import {Request, Response} from "express"
 
 import Router from "express-promise-router"
-import {sequelize} from "../../models/index.js"
+import {sequelize} from "../../../models/index.js"
 import {QueryTypes} from "sequelize"
-import {Job} from "../../models/job.js"
+import {Job} from "../../../models/job.js"
 
 const router = Router()
 
