@@ -1,4 +1,4 @@
-import React from "react"
+import React, {Fragment, useEffect, useState} from "react"
 import {Codeblock} from "./components/codeblock.js"
 
 const htmlExample = `
@@ -41,10 +41,25 @@ const jsonExample = `
     ...
 
 ]
-
 `
-
+type TestDrive = {
+    id: number
+    url: string
+    structure: string
+    completed: string
+}
 function App({data}: {data: any}) {
+    const [testDrives, setTestDrives] = useState<TestDrive[] | []>([])
+
+    useEffect(() => {
+        fetch(`/api/srv/latest-test-drives`)
+            .then(response => response.json())
+            .then((data: TestDrive[]) => {
+                setTestDrives(data)
+            })
+            .catch(error => console.error(error))
+    }, [])
+
     return (
         <>
             <div className="container mx-auto py-12 pb-24">
@@ -64,6 +79,25 @@ function App({data}: {data: any}) {
                     </a>
                 </div>
             </div>
+            <Fragment>
+                {testDrives!.map(testDrive => {
+                    return (
+                        <div className="flex mb-4" key={testDrive.id}>
+                            <div className="w-2/5 h12">
+                                <h3 className="text-2xl font-medium pb-4 text-center">Unstructured Data</h3>
+                                <span>{testDrive.url}</span>
+                                <br />
+                                <img src={`https://serialyzr.s3.amazonaws.com/screenshots/${testDrive.id}.jpg`} />
+                            </div>
+                            <div className="w-1/5 h12 text-2xl text-center">{"==>"}</div>
+                            <div className="w-2/5 h12">
+                                <h3 className="text-2xl font-medium pb-4 text-center">Structured Data</h3>
+                                <Codeblock code={testDrive.structure} lang="JSON" />
+                            </div>
+                        </div>
+                    )
+                })}
+            </Fragment>
             <div className="flex mb-4">
                 <div className="w-2/5 h12">
                     <h3 className="text-2xl font-medium pb-4 text-center">Unstructured Data</h3>

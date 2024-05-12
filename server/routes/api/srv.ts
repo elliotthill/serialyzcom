@@ -39,4 +39,12 @@ router.post("/test-drive", async function (req: Request, res: Response) {
     setTimeout(poll, config.TRY_START_POLL_MS)
 })
 
+import {TestDrives} from "../../services/test-drives.js"
+const testDrives = new TestDrives(sequelize)
+
+router.get("/latest-test-drives", async function (req: Request, res: Response) {
+    const testDriveData = await testDrives.getLatest()
+    res.json(testDriveData).send()
+})
+
 export default router

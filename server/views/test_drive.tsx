@@ -2,7 +2,7 @@
 import React from "react"
 import {Progress} from "flowbite-react"
 
-export function TestDrive() {
+export function TestDrive({data}) {
     return (
         <div>
             <section>
@@ -40,6 +40,7 @@ export function TestDrive() {
                     </form>
                 </div>
             </section>
+
             <section suppressHydrationWarning={true}>
                 <div className="w-full mx-auto lg:px-64 py-12">
                     <Progress progress={0} color="dark" suppressHydrationWarning={true} />

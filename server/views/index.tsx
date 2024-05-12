@@ -1,5 +1,5 @@
-import React from 'react';
-import {Codeblock} from './components/codeblock.js';
+import React from "react"
+import {Codeblock} from "./components/codeblock.js"
 
 const htmlExample = `
 <html>
@@ -10,7 +10,7 @@ const htmlExample = `
         ...
 
     </body>
-</html>`;
+</html>`
 const jsonExample = `
 [
     {
@@ -42,11 +42,11 @@ const jsonExample = `
 
 ]
 
-`;
+`
 
-function App({data}:{data:any}) {
+function App({data}: {data: any}) {
     return (
-            <>
+        <>
             <div className="container mx-auto py-12 pb-12">
                 <h1 className="font-bold text-2xl md:text-5xl text-center text-slate-800 pb-4 px-4">
                     Access the web as a JSON document
@@ -63,25 +63,41 @@ function App({data}:{data:any}) {
                         Test Drive!
                     </a>
                 </div>
-
             </div>
-            <div className='flex mb-4'>
-                <div className='w-2/5 h12'>
-                    <h3 className='text-2xl font-medium pb-4 text-center'>Unstructured Data</h3>
+            <Fragment>
+                {data.testDrives!.map(testDrive => {
+                    return (
+                        <div className="flex mb-4" key={testDrive.id}>
+                            <div className="w-2/5 h12">
+                                <h3 className="text-2xl font-medium pb-4 text-center">Unstructured Data</h3>
+                                <span>{testDrive.url}</span>
+                                <br />
+                                <img src={`https://serialyzr.s3.amazonaws.com/screenshots/${testDrive.id}.jpg`} />
+                            </div>
+                            <div className="w-1/5 h12 text-2xl text-center">{"==>"}</div>
+                            <div className="w-2/5 h12">
+                                <h3 className="text-2xl font-medium pb-4 text-center">Structured Data</h3>
+                                <Codeblock code={testDrive.structure} lang="JSON" />
+                            </div>
+                        </div>
+                    )
+                })}
+            </Fragment>
+            <div className="flex mb-4">
+                <div className="w-2/5 h12">
+                    <h3 className="text-2xl font-medium pb-4 text-center">Unstructured Data</h3>
                     <Codeblock code={htmlExample} lang="HTML" />
                     <br />
                     <img src="/assets/images/reddit.jpg" />
                 </div>
-                <div className='w-1/5 h12 text-2xl text-center'>
-                    {'==>'}
-                </div>
-                <div className='w-2/5 h12'>
-                    <h3 className='text-2xl font-medium pb-4 text-center'>Structured Data</h3>
+                <div className="w-1/5 h12 text-2xl text-center">{"==>"}</div>
+                <div className="w-2/5 h12">
+                    <h3 className="text-2xl font-medium pb-4 text-center">Structured Data</h3>
                     <Codeblock code={jsonExample} lang="JSON" />
                 </div>
             </div>
-            </>
-    );
+        </>
+    )
 }
 
-export default App;
+export default App
