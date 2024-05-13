@@ -45,13 +45,14 @@ export function TestDrive({data}) {
                 <div className="w-full mx-auto lg:px-64 py-12">
                     <Progress progress={0} color="dark" suppressHydrationWarning={true} />
                 </div>
-                <div className="flex flex-row py-12">
-                    <div className="basis-2/5">
-                        <h5 className="text-center font-medium text-lg">Source</h5>
+                <div className="flex flex-row py-12 hidden">
+                    <div className="float-left w-1/2">
+                        <h5 className="text-center font-medium text-lg pb-12">Source</h5>
+                        <div className="w-full p-2"></div>
                     </div>
-                    <div className="basis-1/5 text-center">={">"}</div>
-                    <div className="basis-2/5">
-                        <h5 className="text-center font-medium text-lg">Output</h5>
+                    <div className="float-left w-1/2">
+                        <h5 className="text-center font-medium text-lg pb-12">Serialyz Output</h5>
+                        <div className="w-full p-2"></div>
                     </div>
                 </div>
             </section>

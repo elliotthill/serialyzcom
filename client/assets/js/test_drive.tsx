@@ -114,11 +114,6 @@ export function TestDrive() {
                     </form>
                 </div>
             </section>
-
-            <section>
-
-            </section>
-
             <section className="w-full" suppressHydrationWarning={true}>
                 <div className="w-full mx-auto lg:px-64 py-6">
                     <Progress progress={progress} />

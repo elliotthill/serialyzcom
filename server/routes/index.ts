@@ -3,12 +3,11 @@ import express from "express"
 import Router from "express-promise-router"
 const router = Router()
 
-import {Index, TestDrive} from "../controllers/index.js"
+import {Index} from "../controllers/index.js"
 import {Login, Register, Logout} from "../controllers/auth.js"
 
 /* GET home page. */
 router.get("/", Index)
-router.get("/test-drive", TestDrive)
 
 router.get("/login", Login)
 router.get("/register", Register)

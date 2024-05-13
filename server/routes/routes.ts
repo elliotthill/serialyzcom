@@ -1,23 +1,25 @@
 import {Express} from "express"
-//SPA entry
+
 import routes from "./index.js"
 import dashboard from "./dashboard/index.js"
-
-//Auth API - MUST BE UNCACHED
+import testDrive from "./test-drive/index.js"
 import user from "./api/user.js"
 import srv from "./api/srv.js"
 import secret from "./api/secret/index.js"
 
 const defineRoutes = (app: Express) => {
+    ///Top level URLS
+    app.use("/", routes)
+    app.use("/register", routes)
+    app.use("/login", routes)
+
+    ///API urls
     app.use("/api/user", user)
     app.use("/api/srv", srv)
     app.use("/api/secret", secret)
 
-    app.use("/", routes)
-    app.use("/register", routes)
-    app.use("/login", routes)
-    app.use("/test-drive", routes)
-
+    //Section URLS
+    app.use("/test-drive/", testDrive)
     app.use("/dashboard/", dashboard)
 }
 

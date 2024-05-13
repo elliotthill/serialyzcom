@@ -8,6 +8,9 @@ export default {
         "./node_modules/flowbite-react/lib/esm/**/*.js"
     ],
     theme: {
+        borderWidth: {
+            DEFAULT: "3px"
+        },
         extend: {
             colors: {
                 sunrise: "#f4ede4",
