@@ -8,6 +8,21 @@ export class TestDrives {
         this.db = db
     }
 
+    async getOne(id: number) {
+        return await this.db.query(
+            `
+            SELECT id, url, jsonb_pretty(structure) as structure, completed
+            FROM job
+            WHERE id=:id
+            `,
+            {
+                replacements: {id: id},
+                type: QueryTypes.SELECT,
+                plain: true
+            }
+        )
+    }
+
     async getLatest() {
         return await this.db.query(
             `

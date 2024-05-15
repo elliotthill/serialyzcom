@@ -1,17 +1,29 @@
-import {Request, Response} from "express"
+import { Request, Response } from "express"
 
 import Router from "express-promise-router"
-import {sequelize} from "../../../models/index.js"
-import {QueryTypes} from "sequelize"
-import {Job} from "../../../models/job.js"
+import { sequelize } from "../../../models/index.js"
+import { QueryTypes } from "sequelize"
+import { Job } from "../../../models/job.js"
 
 const router = Router()
+
+const authenticate = (req: Request): boolean => {
+    if (!req.headers.key || req.headers.key !== process.env.API_POLL_KEY) {
+        return false
+    }
+    return true
+}
 
 /*
  * These paths will need to be protected by a key
  */
 
 router.get("/", async (req: Request, res: Response) => {
+    if (!authenticate(req)) {
+        res.status(402).send()
+        return
+    }
+
     const job = await sequelize.query<Job>(
         `
     SELECT id, url
@@ -19,7 +31,7 @@ router.get("/", async (req: Request, res: Response) => {
     WHERE status='requested'
     ORDER BY requested ASC
     `,
-        {type: QueryTypes.SELECT, plain: true}
+        { type: QueryTypes.SELECT, plain: true }
     )
 
     res.json(job)
@@ -46,6 +58,11 @@ router.get("/", async (req: Request, res: Response) => {
 })
 
 router.post("/:jobId/return", async (req: Request, res: Response) => {
+    if (!authenticate(req)) {
+        res.status(402).send()
+        return
+    }
+
     const jobId = req.params.jobId
     const json = JSON.stringify(req.body)
 
@@ -56,7 +73,7 @@ router.post("/:jobId/return", async (req: Request, res: Response) => {
                 id: jobId
             }
         })
-        res.json({status: "success"})
+        res.json({ status: "success" })
         return
     }
 
@@ -68,7 +85,7 @@ router.post("/:jobId/return", async (req: Request, res: Response) => {
         }
     })
 
-    res.json({status: "success"})
+    res.json({ status: "success" })
 })
 
 export default router

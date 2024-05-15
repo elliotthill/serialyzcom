@@ -4,6 +4,7 @@ import {hybridRenderView, serverRenderView} from "./utils/render_view.js"
 import renderCache from "../middleware/render_cache.js"
 
 import {TestDrive as TryReact} from "../views/test_drive.js"
+import {ViewTestDrive as ViewTestDriveReact} from "../views/view_test_drive.js"
 
 import {TestDrives} from "../services/test-drives.js"
 const testDrives = new TestDrives(sequelize)
@@ -16,9 +17,15 @@ export function TestDrive(req: Request, res: Response) {
     res.send(htmlRender)
 }
 
-export function ViewTestDrive(req: Request, res: Response) {
-    const htmlRender = hybridRenderView(res, "index.pug", TryReact, {canonical: "/test-drive"}, {data: "React data"})
-
+export async function ViewTestDrive(req: Request, res: Response) {
+    const testDriveData = await testDrives.getOne(req.params.id)
+    const htmlRender = serverRenderView(
+        res,
+        "index.pug",
+        ViewTestDriveReact,
+        {canonical: "/test-drive"},
+        {testDrive: testDriveData}
+    )
     renderCache.push(req, htmlRender)
     res.send(htmlRender)
 }

@@ -1,5 +1,5 @@
 //Express framework
-import express, {Request, Response, NextFunction} from "express" //const express = require('express');
+import express, { Request, Response, NextFunction } from "express" //const express = require('express');
 //Express session
 import session from "express-session" //const session = require('express-session');
 import connectSessionSequelize from "connect-session-sequelize" //const sequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -17,12 +17,15 @@ import passport from "passport"
 import "./server/config/passport.js"
 
 const app = express()
-import "dotenv/config"
 const ENV = env.NODE_ENV
+
+if (!process.env.API_POLL_KEY) throw Error("API_POLL_KEY not set")
+if (!process.env.NODE_ENV) throw Error("NODE_ENV not set")
+if (!process.env.COOKIE_SECRET) throw Error("COOKIE_SECRET not set")
 /*
  * ES6 __dirname
  */
-import {fileURLToPath} from "url"
+import { fileURLToPath } from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -41,16 +44,16 @@ app.set("node_modules", path.join(__dirname, "client/node_modules"))
 //Favicon
 app.use(favicon(path.join(__dirname, "client", "/assets/images/favicon.ico")))
 
-app.use(bodyParser.json({limit: 1024 * 1024 * 20}))
-app.use(bodyParser.urlencoded({extended: true, limit: 1024 * 1024 * 20}))
+app.use(bodyParser.json({ limit: 1024 * 1024 * 20 }))
+app.use(bodyParser.urlencoded({ extended: true, limit: 1024 * 1024 * 20 }))
 app.use(cookieParser())
 
 let today = new Date()
-import {models, sequelize} from "./server/models/index.js"
+import { models, sequelize } from "./server/models/index.js"
 
 app.use(
     session({
-        secret: process.env.COOKIE_SECRET!,
+        secret: process.env.COOKIE_SECRET,
         cookie: {
             expires: new Date(today.getFullYear() + 10, today.getMonth(), today.getDate())
         },
@@ -65,12 +68,12 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
-app.post("/api/user/login", passport.authenticate("local"), function (req: Request, res: Response) {
-    res.json({meta: "success"})
+app.post("/api/user/login", passport.authenticate("local"), function(req: Request, res: Response) {
+    res.json({ meta: "success" })
 })
 
 //Expose passport user info in all views
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.locals.version = process.env.npm_package_version
     res.locals.title = process.env.npm_package_name
 
@@ -86,11 +89,11 @@ app.use(express.static(path.join(__dirname, "client")))
 app.use(express.static(path.join(__dirname, "client/dist")))
 
 import renderCache from "./server/middleware/render_cache.js"
-import {env} from "process"
+import { env } from "process"
 renderCache.set_store(models.RenderCacheStore, "findByPk", "upsert")
 app.use(renderCache.middleware)
 
-app.get("/robots.txt", function (req: Request, res: Response) {
+app.get("/robots.txt", function(req: Request, res: Response) {
     res.type("text/plain")
 
     if (ENV === "production") {
@@ -104,18 +107,18 @@ import defineRoutes from "./server/routes/routes.js"
 defineRoutes(app)
 
 // catch 404 and forward to error handler
-app.use(function (req: Request, res: Response, next: NextFunction) {
+app.use(function(req: Request, res: Response, next: NextFunction) {
     res.status(404)
 
     // respond with html page
     if (req.accepts("html")) {
-        res.render("error", {code: 404, url: req.url})
+        res.render("error", { code: 404, url: req.url })
         return
     }
 
     // respond with json
     if (req.accepts("json")) {
-        res.json({error: "Not found"})
+        res.json({ error: "Not found" })
         return
     }
 
@@ -131,7 +134,7 @@ if (ENV === "development" || ENV === "docker") {
 
     // development error handler
     // will print stacktrace
-    app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
+    app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
         console.log(err)
 
         res.status(err.status || 500)
@@ -144,7 +147,7 @@ if (ENV === "development" || ENV === "docker") {
     app.set("view cache", false)
 
     // no stacktraces leaked to user
-    app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
+    app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
         res.status(err.status || 500)
         res.render("error", {
             message: "Uh-oh. Something went wrong.",
