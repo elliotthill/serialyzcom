@@ -36,7 +36,7 @@ class RenderCache {
             return
         }
 
-        const cache = await this.store[this.findOneFunc](req.path)
+        const cache = await this.store[this.findOneFunc](req.baseUrl + req.path)
 
         if (cache === null) {
             next()
@@ -48,7 +48,7 @@ class RenderCache {
     }
 
     push = (req: Request, body: string): Promise<boolean> => {
-        if (!req.isAuthenticated()) return this.store[this.upsertFunc]({id: req.path, html: body})
+        if (!req.isAuthenticated()) return this.store[this.upsertFunc]({id: req.baseUrl + req.path, html: body})
         else return Promise.resolve(false)
     }
 }
