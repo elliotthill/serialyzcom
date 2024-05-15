@@ -18,10 +18,10 @@ const config: ConfigType = {
         logging: false
     },
     production: {
-        username: !process.env.DB_USERNAME,
-        password: !process.env.DB_PASSWORD,
-        database: !process.env.DB_DATABASE,
-        host: !process.env.DB_HOST,
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        host: process.env.DB_HOST,
         port: 5432,
         dialect: "postgres",
         pool: {
