@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-sudo systemctl restart bun.service -l
+sudo systemctl restart bun.service
 
