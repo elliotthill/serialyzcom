@@ -13,5 +13,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 bun install --production
 cd /client
+bun install --production
 bun pack
 cd ..
