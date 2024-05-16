@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd /srv/www/node/serialyz
 
 #Load NVM
 export NVM_DIR="$HOME/.nvm"
@@ -12,8 +13,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 bun install --production
-pwd
-cd "$(dirname "${BASH_SOURCE[0]}")/client"
+cd ../client
 bun install --production
 bun pack
 bun tailwind
