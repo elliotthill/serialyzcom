@@ -11,7 +11,8 @@
         "watch:tsc": "tsc -w",
         "watch:bun": "bun build ./assets/js/index.tsx --outdir ./dist --watch",
         "watch:bunProd": "bun build --minify ./assets/js/index.tsx --outdir ./dist --watch",
-        "pack": "bun build --minify ./assets/js/index.tsx --outdir ./dist"
+        "pack": "bun build --minify ./assets/js/index.tsx --outdir ./dist",
+        "tailwind": "npx tailwindcss -i assets/css/style.css -o assets/css/output.css"
     },
     "author": "",
     "license": "ISC",

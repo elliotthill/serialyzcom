@@ -15,4 +15,5 @@ bun install --production
 cd client/
 bun install --production
 bun pack
+bun tailwind
 cd ..
