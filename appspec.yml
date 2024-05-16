@@ -12,10 +12,6 @@ permissions:
           - directory
           - file
 hooks:
-    BeforeInstall:
-        - location: deploy/pre.sh
-          timeout: 6
-          runas: root
     AfterInstall:
         - location: deploy/deps.sh
           timeout: 100
