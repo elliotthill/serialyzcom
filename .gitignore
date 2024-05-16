@@ -55,3 +55,4 @@ app.js.map
 client/**/*.js
 client/**/*.jsx
 client/**/*.js.map
+client/assets/css/output.css
