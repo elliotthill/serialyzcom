@@ -128,7 +128,7 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
 })
 
 // error handlers
-if (ENV === "development" || ENV === "docker") {
+if (ENV === "development" || ENV === "docker" || ENV === "test") {
     console.log("RUNNING IN DEV MODE....")
 
     app.set("view cache", false)

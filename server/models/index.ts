@@ -25,3 +25,14 @@ export const models = {
     RenderCacheStore,
     Job
 }
+
+/*
+ * Mock if we are testing
+ */
+if (process.env.NODE_ENV === "test") {
+    console.warn(`Replacing query interface for testing`)
+    RenderCacheStore.findByPk = () => []
+    RenderCacheStore.upsert = () => []
+
+    sequelize.query = () => []
+}

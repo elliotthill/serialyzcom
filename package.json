@@ -61,6 +61,7 @@
     "@tsconfig/recommended": "^1.0.3",
     "@types/bcrypt-nodejs": "^0.0.31",
     "@types/passport-local": "^1.0.38",
+    "bun-types": "^1.1.8",
     "eslint-plugin-react": "^7.34.1",
     "prettier": "^3.2.5",
     "typescript": "^5.4.2"

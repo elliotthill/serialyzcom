@@ -17,6 +17,10 @@ const config: ConfigType = {
         },
         logging: false
     },
+    test: {
+        validateOnly: true,
+        dialect: "postgres"
+    },
     production: {
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
