@@ -1,16 +1,21 @@
-version: 0.0
+version: 0.1
 os: linux
 files:
     - source: /
       destination: /srv/www/node/serialyz
 permissions:
     - object: /srv/www/node/serialyz
+      mode: 775
       owner: node
       group: node
       type:
           - directory
           - file
 hooks:
+    BeforeInstall:
+        - location: deploy/pre.sh
+          timeout: 6
+          runas: root
     AfterInstall:
         - location: deploy/deps.sh
           timeout: 100
