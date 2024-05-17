@@ -1,0 +1,1 @@
+1 * * * * cd /srv/www/node/serialyz && /home/admin/.bun/bin/bun server/cron/cache.ts

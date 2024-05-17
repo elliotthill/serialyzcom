@@ -16,6 +16,9 @@ hooks:
         - location: deploy/deps.sh
           timeout: 100
           runas: node
+        - location: deploy/cron.sh
+          timeout: 10
+          runas: admin
     ApplicationStart:
         - location: deploy/start.sh
           timeout: 100
