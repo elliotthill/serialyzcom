@@ -1,3 +1,6 @@
 {
-    "CACHE_EXPIRATION_DAYS": 1
+    "CACHE_EXPIRATION_DAYS": 1,
+    "TITLE": "serialyz",
+    "BASE_URL": "https://serialyz.com",
+    "VERSION": "0.0.1"
 }

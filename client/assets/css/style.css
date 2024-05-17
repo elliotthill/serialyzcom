@@ -1,24 +1,49 @@
+/* fira-sans-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Fira Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/fira-sans-v17-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* fira-sans-500 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Fira Sans";
+    font-style: normal;
+    font-weight: 500;
+    src: url("../fonts/fira-sans-v17-latin-500.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* fira-sans-600 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Fira Sans";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../fonts/fira-sans-v17-latin-600.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    size-adjust: 102%;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-input[type='number'] {
+input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
 }
 
-input[type='number']::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
 html {
-    font-family: "Fira Sans","Roboto", system-ui, sans-serif;
+    font-family: "Fira Sans", "Roboto", system-ui, sans-serif;
 }
 /* width */
 ::-webkit-scrollbar {
@@ -41,4 +66,3 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-

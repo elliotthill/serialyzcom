@@ -1,8 +1,8 @@
 "use client"
 
-import React, {FormEvent, FormEventHandler, useState} from "react"
-import {Progress} from "flowbite-react"
-import {Codeblock} from "./components/codeblock.js"
+import React, { FormEvent, FormEventHandler, useState } from "react"
+import { Progress } from "flowbite-react"
+import { Codeblock } from "./components/codeblock.js"
 import Loading from "./components/loading.js"
 
 export function TestDrive() {
@@ -30,12 +30,12 @@ export function TestDrive() {
         setSubmitting(true)
         let pb = progressBar()
 
-        const response = await fetch("/api/srv/test-drive", {
+        const response = await fetch("/api/test-drive", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({url})
+            body: JSON.stringify({ url })
         })
 
         if (response.status !== 200) {

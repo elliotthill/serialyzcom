@@ -20,7 +20,10 @@ export default function TestDriveThumbnail({ testDrives }) {
                             </div>
                             <div className="grid grid-cols-2 divide-x-[5px] py-4">
                                 <div className="pr-6">
-                                    <img src={`https://serialyzr.s3.amazonaws.com/screenshots/${testDrive.id}.jpg`} />
+                                    <img
+                                        loading="lazy"
+                                        src={`https://serialyzr.s3.amazonaws.com/screenshots/${testDrive.id}.jpg`}
+                                    />
                                     <span className="text-sm text-right float-right pt-2">URL screenshot</span>
                                 </div>
                                 <div className="pl-6">

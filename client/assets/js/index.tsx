@@ -1,17 +1,18 @@
 import App from "./app.js"
 import Login from "./login.js"
 import Register from "./register.js"
-import {Dashboard} from "./dashboard.js"
-import {TestDrive} from "./test_drive.js"
-import {UserProvider} from "./services/user-context.js"
+import { Dashboard } from "./dashboard.js"
+import { TestDrive } from "./test_drive.js"
+import { ViewTestDrive } from "./view_test_drive.js"
+import { UserProvider } from "./services/user-context.js"
 
-import ReactDOM, {hydrateRoot} from "react-dom/client"
+import ReactDOM, { hydrateRoot } from "react-dom/client"
 import React from "react"
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App data={{data: null}} />
+        element: <App data={{ data: null }} />
     },
     {
         path: "/login",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: "/test-drive",
         element: <TestDrive />
+    },
+    {
+        path: "/test-drive/:id",
+        element: <ViewTestDrive />
     }
 ])
 
