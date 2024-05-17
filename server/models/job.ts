@@ -1,4 +1,4 @@
-import {Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional} from "sequelize"
+import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize"
 
 const statusOptions = DataTypes.ENUM("requested", "processing", "complete", "error")
 
@@ -11,11 +11,11 @@ export class Job extends Model<InferAttributes<Job>, InferCreationAttributes<Job
     declare completed: CreationOptional<string>
 }
 
-export default function (sequelize: Sequelize) {
+export default function(sequelize: Sequelize) {
     Job.init(
         {
             id: {
-                type: DataTypes.INTEGER.UNSIGNED,
+                type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true
             },

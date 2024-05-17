@@ -1,6 +1,6 @@
 "use strict"
 
-import {Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional} from "sequelize"
+import { Model, DataTypes, Sequelize, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize"
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     declare id: CreationOptional<number>
@@ -13,11 +13,11 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
     }
 }
 
-export default function (sequelize: Sequelize) {
+export default function(sequelize: Sequelize) {
     User.init(
         {
             id: {
-                type: DataTypes.INTEGER.UNSIGNED,
+                type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true
             },
