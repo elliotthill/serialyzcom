@@ -21,7 +21,9 @@ const app = express()
 const ENV = env.NODE_ENV
 
 if (!process.env.API_POLL_KEY) throw Error("API_POLL_KEY not set")
-if (!process.env.NODE_ENV) throw Error("NODE_ENV not set")
+if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = "development"
+}
 if (!process.env.COOKIE_SECRET) throw Error("COOKIE_SECRET not set")
 /*
  * ES6 __dirname
@@ -128,8 +130,8 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
 })
 
 // error handlers
-if (ENV === "development" || ENV === "docker" || ENV === "test") {
-    console.log("RUNNING IN DEV MODE....")
+if (ENV === "development" || ENV === "docker" || ENV === "test" || ENV === "integrationtest") {
+    console.log(`RUNNING IN ${ENV} MODE`)
 
     app.set("view cache", false)
 

@@ -1,7 +1,7 @@
 type ConfigType = {
     [key: string]: any
 }
-
+import SQLite from "sqlite3"
 const config: ConfigType = {
     development: {
         username: "write",
@@ -18,8 +18,15 @@ const config: ConfigType = {
         logging: false
     },
     test: {
-        validateOnly: true,
-        dialect: "postgres"
+        //validateOnly: true,
+        dialect: "sqlite",
+        storage: ":memory:",
+        dialectOptions: {
+            // Your sqlite3 options here
+            // for instance, this is how you can configure the database opening mode:
+            mode: SQLite.OPEN_READWRITE
+        },
+        logging: false
     },
     production: {
         username: process.env.DB_USERNAME,
