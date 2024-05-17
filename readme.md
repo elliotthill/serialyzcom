@@ -1,4 +1,6 @@
-Todo readme.md
+# Serialyz.com
+
+This is the repo for the website serialyz.com.
 
 ## Front End
 

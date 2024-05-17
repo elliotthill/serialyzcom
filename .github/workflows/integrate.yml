@@ -3,7 +3,9 @@ name: Continuous Integration
 on:
     pull_request:
         branches: [main]
-
+env:
+    API_POLL_KEY: ${{ secrets.API_POLL_KEY }}
+    COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
 jobs:
     test_pull_request:
         runs-on: ubuntu-latest
