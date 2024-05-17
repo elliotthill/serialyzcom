@@ -14,7 +14,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 bun install --production
 cd client
-bun install --production
-bun pack
-bun tailwind
+#No .env file in client
+NODE_ENV=production bun install --production
+NODE_ENV=production bun pack
+NODE_ENV=production bun tailwind
 cd ..
