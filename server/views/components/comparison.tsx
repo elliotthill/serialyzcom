@@ -1,14 +1,14 @@
 export function Comparison() {
     return (
-        <div id="detailed-pricing" className="w-full mx-auto  shadow-md bg-gray-100">
+        <div id="detailed-pricing" className="w-full mx-auto  shadow-md bg-gray-800 glass">
             <div className="overflow-hidden min-w-max">
-                <div className="grid grid-cols-3 p-4 text-base font-medium text-slate-800 border-t border-b border-gray-200 gap-x-4">
+                <div className="grid grid-cols-3 p-4 text-base font-medium text-gray-100 border-t border-b border-gray-600 gap-x-4">
                     <div className="flex items-center"></div>
                     <div>Traditional Webscraping</div>
                     <div>Serialyz</div>
                 </div>
-                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-700 border-b border-gray-200 gap-x-4">
-                    <div className="text-gray-500 ">General purpose?</div>
+                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-400 border-b border-slate-600 gap-x-4">
+                    <div>General purpose?</div>
                     <div>
                         <RedCross />
                         <span className="m-2 text-red-500 inline">Bespoke per website</span>
@@ -19,8 +19,8 @@ export function Comparison() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-700 border-b border-gray-200 gap-x-4">
-                    <div className="text-gray-500 ">class/id/tag HTML changes?</div>
+                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-400 border-b border-slate-600 gap-x-4">
+                    <div>class/id/tag HTML changes?</div>
                     <div>
                         <RedCross />
                         <span className="m-2 text-red-500 inline">Breaks</span>
@@ -30,8 +30,8 @@ export function Comparison() {
                         <span className="m-2 text-green-500 inline">Keeps working</span>
                     </div>
                 </div>
-                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-700 border-b border-gray-200 gap-x-4">
-                    <div className="text-gray-500 ">Source site structural changes?</div>
+                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-400 border-b border-slate-600 gap-x-4">
+                    <div>Source site structural changes?</div>
                     <div>
                         <RedCross />
                         <span className="m-2 text-red-500 inline">Breaks</span>
@@ -41,8 +41,8 @@ export function Comparison() {
                         <span className="m-2 text-green-500 inline">Keeps working</span>
                     </div>
                 </div>
-                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-700 border-b border-gray-200 gap-x-4">
-                    <div className="text-gray-500 ">Setup and forget?</div>
+                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-400 border-b border-slate-600 gap-x-4">
+                    <div>Setup and forget?</div>
                     <div>
                         <RedCross />
                         <span className="m-2 text-red-500 inline">No, maintenance and monitoring</span>
@@ -52,8 +52,8 @@ export function Comparison() {
                         <span className="m-2 text-green-500 inline">Yes</span>
                     </div>
                 </div>
-                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-700 border-b border-gray-200 gap-x-4">
-                    <div className="text-gray-500 ">Easily transformable with AI?</div>
+                <div className="grid grid-cols-3 px-4 py-5 text-sm text-gray-400 border-b border-slate-600 gap-x-4">
+                    <div>Easily transformable with AI?</div>
                     <div>
                         <GreenCross />
                         <span className="m-2 text-green-500 inline">Yes</span>
