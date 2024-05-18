@@ -10,12 +10,18 @@ function App({ data }: { data: any }) {
                     Transform Web Pages into Structured Data
                 </h1>
 
-                <h3 className="font-medium text-xl text-center text-slate-600 pb-8">Test drive any URL!</h3>
+                <h3 className="font-medium text-xl text-center text-slate-600 pb-8">
+                    Without the headaches of web scraping
+                </h3>
                 <div className="dark:text-slate-300 mx-auto md:w-full lg:w-6/12 text-justify pb-8 px-4">
                     Welcome to Serialyzr.com, your ultimate solution for converting web pages into structured data
                     effortlessly. Say goodbye to the challenges of traditional web scraping methods that break with
                     every minor change in CSS or HTML. With Serialyzr, you get a robust, reliable, and versatile tool
                     that delivers clean, structured data seamlessly.
+                    <p className="py-6">
+                        It uses a set of innovate visual parsing algorithms that deliver reliable and deterministic
+                        results.
+                    </p>
                 </div>
                 <div className="text-center">
                     <a
