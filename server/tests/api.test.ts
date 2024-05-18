@@ -39,9 +39,3 @@ const close = () => {
         process.exit()
     })
 }
-
-process.on("SIGINT", async () => {
-    server.close(() => {
-        process.exit()
-    })
-})

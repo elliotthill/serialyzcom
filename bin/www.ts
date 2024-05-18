@@ -66,13 +66,15 @@ sequelize
             debug("Listening on " + bind)
         }
 
+        process.on("SIGINT", async () => {
+            console.log("Ctrl+c was pressed")
+            server.close(() => {
+                process.exit()
+            })
+        })
+
         console.log("Database synced")
     })
     .catch(err => {
         console.error(err)
     })
-
-process.on("SIGINT", async () => {
-    console.log("Ctrl+c was pressed")
-    process.exit()
-})
