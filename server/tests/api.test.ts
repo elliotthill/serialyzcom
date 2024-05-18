@@ -36,5 +36,12 @@ describe("ExpressJS", async () => {
 const close = () => {
     server.close(() => {
         console.log("Server closed")
+        process.exit()
     })
 }
+
+process.on("SIGINT", async () => {
+    server.close(() => {
+        process.exit()
+    })
+})
