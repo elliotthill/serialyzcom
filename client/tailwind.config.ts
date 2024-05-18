@@ -12,10 +12,10 @@ export default {
             colors: {
                 sunrise: "#f4ede4",
                 primary: {
-                    500: "#62be54",
-                    600: "#8dc16e", //Color from logo
-                    700: "#a8de6",
-                    800: "#1380d4"
+                    500: "#2293e8",
+                    600: "#178feb", //Color from logo
+                    700: "#1380d4",
+                    800: "#0a4e83"
                 },
                 cyan: {
                     500: "#2293e8",
@@ -29,6 +29,11 @@ export default {
                     600: "#8dc16e", //Color from logo
                     700: "#a8de6",
                     800: "#1380d4"
+                },
+                grey: {
+                    900: "#222730",
+                    800: "#2d343f",
+                    700: "#36404e"
                 }
             }
         }

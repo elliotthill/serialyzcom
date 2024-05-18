@@ -63,6 +63,13 @@ html {
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+.block-gradient-light {
+    overflow: hidden;
+    background: linear-gradient(270deg, #a3a3a3a8 0%, #8390acc9 100%), url(/assets/images/noise.svg);
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
 .glass {
     opacity: 0.75;
 }
