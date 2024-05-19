@@ -19,3 +19,5 @@ NODE_ENV=production bun install --production
 NODE_ENV=production bun pack
 NODE_ENV=production bun tailwind
 cd ..
+
+bun run server/cron/deploy.ts
