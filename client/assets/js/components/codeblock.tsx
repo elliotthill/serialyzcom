@@ -1,14 +1,14 @@
-"use client";
-import React, {useState} from "react"
-import {Button} from "flowbite-react";
+"use client"
+import React, { useState } from "react"
+import { Button } from "flowbite-react"
 
-export function Codeblock({code, lang}: {code: string | null; lang: string}) {
+export function Codeblock({ code, lang }: { code: string | null; lang: string }) {
     if (!code) return
 
-    const [copied, setCopied] = useState<boolean>(false);
+    const [copied, setCopied] = useState<boolean>(false)
     const copyToClipboard = () => {
         console.log("Copy to clipboard")
-        navigator.clipboard.writeText(code).then(result=>{
+        navigator.clipboard.writeText(code).then(result => {
             setCopied(true)
         })
     }
@@ -16,7 +16,7 @@ export function Codeblock({code, lang}: {code: string | null; lang: string}) {
     return (
         <>
             <div className="w-full space-y-4">
-                <div className="overflow-hidden shadow bg-slate-700 text-sm text-white rounded" data-testid="codeblock">
+                <div className="overflow-hidden shadow bg-grey-700 text-sm text-white rounded" data-testid="codeblock">
                     <header className="relative text-xs text-white/50 uppercase flex justify-between items-center p-2 pl-4">
                         <span className="codeblock-language text-base">{lang}</span>
                         <button className="absolute right-[15px] hover:text-gray-600" onClick={copyToClipboard}>

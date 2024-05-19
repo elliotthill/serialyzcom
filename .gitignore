@@ -56,3 +56,5 @@ client/**/*.js
 client/**/*.jsx
 client/**/*.js.map
 client/assets/css/output.css
+
+!server/models/migrations/*.js

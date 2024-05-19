@@ -11,10 +11,10 @@ export default function TestDriveThumbnail({ testDrives }) {
                     <div className="md:px-4 lg:px-32" key={testDrive.id}>
                         <div className="w-full px-8 py-4 my-12 bg-gray-100 rounded-lg shadow-md">
                             <div className="flex items-center justify-between">
-                                <span className="text-sm font-light text-gray-600">
+                                <span className="text-lg font-light text-gray-600">
                                     <b className="font-bold">Test Drive</b> {testDrive.url}
                                 </span>
-                                <span className="float-right text-sm font-light text-gray-600">
+                                <span className="float-right text-lg font-light text-gray-600">
                                     Anonymous User, {timeAgo(testDrive.completed)}
                                 </span>
                             </div>
