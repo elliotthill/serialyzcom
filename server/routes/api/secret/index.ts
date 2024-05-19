@@ -1,9 +1,9 @@
-import { Request, Response } from "express"
+import {Request, Response} from "express"
 
 import Router from "express-promise-router"
-import { sequelize } from "../../../models/index.js"
-import { QueryTypes } from "sequelize"
-import { Job } from "../../../models/job.js"
+import {sequelize} from "../../../models/index.js"
+import {QueryTypes} from "sequelize"
+import {Job} from "../../../models/job.js"
 
 const router = Router()
 
@@ -24,37 +24,25 @@ router.get("/", async (req: Request, res: Response) => {
         return
     }
 
+    /// Select the next job AND marks it as processing in a transactional way
+    /// this is to avoid passing the same job to multiple workers
     const job = await sequelize.query<Job>(
         `
-    SELECT id, url
-    FROM job
-    WHERE status='requested'
-    ORDER BY requested ASC
-    `,
-        { type: QueryTypes.SELECT, plain: true }
+        UPDATE job SET status='processing'
+        WHERE id IN (
+            SELECT id FROM (
+                SELECT id
+                FROM job
+                WHERE status='requested'
+                ORDER BY requested ASC
+                LIMIT 1
+            ) tmp
+        )
+        RETURNING id, url
+        `,
+        {type: QueryTypes.SELECT, plain: true}
     )
-
     res.json(job)
-
-    if (!job) {
-        return
-    }
-
-    //We've now passed that job to them
-    await sequelize.query(
-        `
-    UPDATE job
-    SET status=:status
-    WHERE id=:id
-    `,
-        {
-            type: QueryTypes.UPDATE,
-            replacements: {
-                id: job.id,
-                status: "processing"
-            }
-        }
-    )
 })
 
 router.post("/:jobId/return", async (req: Request, res: Response) => {
@@ -73,7 +61,7 @@ router.post("/:jobId/return", async (req: Request, res: Response) => {
                 id: jobId
             }
         })
-        res.json({ status: "success" })
+        res.json({status: "success"})
         return
     }
 
@@ -85,7 +73,7 @@ router.post("/:jobId/return", async (req: Request, res: Response) => {
         }
     })
 
-    res.json({ status: "success" })
+    res.json({status: "success"})
 })
 
 export default router
