@@ -11,7 +11,7 @@ export class TestDrives {
     async getOne(id: number) {
         return await this.db.query(
             `
-            SELECT id, url, jsonb_pretty(structure) as structure, completed
+            SELECT id, url, jsonb_pretty(structure) as structure, jsonb_pretty(debug) as debug, completed
             FROM job
             WHERE id=:id
             `,

@@ -1,14 +1,14 @@
-import express, { Request, Response, NextFunction } from "express"
+import express, {Request, Response, NextFunction} from "express"
 import Router from "express-promise-router"
-import { models, sequelize } from "../../models/index.js"
-import { Job } from "../../models/job.js"
-import { QueryTypes } from "sequelize"
+import {models, sequelize} from "../../models/index.js"
+import {Job} from "../../models/job.js"
+import {QueryTypes} from "sequelize"
 const router = Router()
 import config from "./config.json" assert {type: "json"}
 
-router.post("/", async function(req: Request, res: Response) {
+router.post("/", async function (req: Request, res: Response) {
     const url: string = req.body.url
-    const jobId = await models.Job.create({ url: url })
+    const jobId = await models.Job.create({url: url})
 
     let pollTime = 0
 
@@ -21,13 +21,13 @@ router.post("/", async function(req: Request, res: Response) {
 
         let job = await sequelize.query<Job>(
             `
-        SELECT id, url, status, structure
+        SELECT id, url, status, structure, debug
         FROM job
         WHERE (status='complete' OR status='error') AND id=:id
         `,
             {
                 type: QueryTypes.SELECT,
-                replacements: { id: jobId.id },
+                replacements: {id: jobId.id},
                 plain: true
             }
         )
@@ -39,15 +39,15 @@ router.post("/", async function(req: Request, res: Response) {
     setTimeout(poll, config.TRY_START_POLL_MS)
 })
 
-import { TestDrives } from "../../services/test-drives.js"
+import {TestDrives} from "../../services/test-drives.js"
 const testDrives = new TestDrives(sequelize)
 
-router.get("/latest-test-drives", async function(req: Request, res: Response) {
+router.get("/latest-test-drives", async function (req: Request, res: Response) {
     const testDriveData = await testDrives.getLatest()
     res.json(testDriveData).send()
 })
 
-router.get("/:id", async function(req: Request, res: Response) {
+router.get("/:id", async function (req: Request, res: Response) {
     const id = Number(req.params.id)
     if (Number.isNaN(id)) {
         res.status(500).send()
