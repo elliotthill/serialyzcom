@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect, useState } from "react"
-import { Codeblock } from "./components/codeblock.js"
+import React, {Fragment, useEffect, useState} from "react"
+import {Codeblock} from "./components/codeblock.js"
 
 export type TestDrive = {
     id: number
     url: string
     structure: string
+    debug?: string
     completed: string
 }
-function App({ data }: { data: any }) {
+function App({data}: {data: any}) {
     const [testDrives, setTestDrives] = useState<TestDrive[] | []>([])
 
     useEffect(() => {

@@ -52,7 +52,8 @@ router.post("/:jobId/return", async (req: Request, res: Response) => {
     }
 
     const jobId = req.params.jobId
-    const json = JSON.stringify(req.body)
+    const json = JSON.stringify(req.body.structure)
+    const debugJson = JSON.stringify(req.body.debug)
 
     if (req.body.status && req.body.status === "error") {
         await sequelize.query(`UPDATE job SET status='error', completed=NOW() WHERE id=:id`, {
@@ -65,13 +66,17 @@ router.post("/:jobId/return", async (req: Request, res: Response) => {
         return
     }
 
-    await sequelize.query(`UPDATE job SET structure=:structure, status='complete', completed=NOW() WHERE id=:id`, {
-        type: QueryTypes.UPDATE,
-        replacements: {
-            id: jobId,
-            structure: json
+    await sequelize.query(
+        `UPDATE job SET structure=:structure, debug=:debug, status='complete', completed=NOW() WHERE id=:id`,
+        {
+            type: QueryTypes.UPDATE,
+            replacements: {
+                id: jobId,
+                structure: json,
+                debug: debugJson
+            }
         }
-    })
+    )
 
     res.json({status: "success"})
 })

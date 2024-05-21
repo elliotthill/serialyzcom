@@ -7,6 +7,7 @@ export class Job extends Model<InferAttributes<Job>, InferCreationAttributes<Job
     declare status: CreationOptional<typeof statusOptions>
     declare url: string
     declare structure: CreationOptional<string>
+    declare debug: CreationOptional<string>
     declare requested: CreationOptional<string>
     declare completed: CreationOptional<string>
 }
@@ -29,6 +30,10 @@ export default function (sequelize: Sequelize) {
                 allowNull: false
             },
             structure: {
+                type: DataTypes.JSONB,
+                allowNull: true
+            },
+            debug: {
                 type: DataTypes.JSONB,
                 allowNull: true
             },
