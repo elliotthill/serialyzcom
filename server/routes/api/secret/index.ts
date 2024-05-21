@@ -24,8 +24,8 @@ router.get("/", async (req: Request, res: Response) => {
         return
     }
 
-    /// Select the next job AND marks it as processing in a transactional way
-    /// this is to avoid passing the same job to multiple workers
+    // Select the next job AND marks it as processing in a transactional way
+    // this is to avoid passing the same job to multiple workers
     const job = await sequelize.query<Job>(
         `
         UPDATE job SET status='processing'
