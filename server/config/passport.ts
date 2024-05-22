@@ -4,7 +4,7 @@ let LocalStrategy = Strategies.Strategy
 
 import {models, sequelize} from "../models/index.js"
 import {User} from "../models/user.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 
 // Serialize Sessions
 passport.serializeUser(function (user, done) {

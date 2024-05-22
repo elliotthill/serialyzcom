@@ -1,5 +1,5 @@
 import express, {Request, Response, NextFunction} from "express"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 
 import {clientRenderView, hybridRenderView, serverRenderView} from "./utils/render_view.js"
 import IndexReact from "../views/index.js"

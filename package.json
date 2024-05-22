@@ -16,6 +16,7 @@
     "@sequelize/postgres": "^7.0.0-alpha.40",
     "@sequelize/sqlite3": "^7.0.0-alpha.40",
     "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.7",
     "@types/errorhandler": "^1.5.3",
@@ -29,7 +30,7 @@
     "@types/react-router": "^5.1.20",
     "@types/sequelize": "^4.28.20",
     "@types/serve-favicon": "^2.5.7",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "connect-session": "^0.0.1",
     "connect-session-sequelize": "^7.1.7",
@@ -67,5 +68,8 @@
     "eslint-plugin-react": "^7.34.1",
     "prettier": "^3.2.5",
     "typescript": "^5.4.2"
-  }
+  },
+  "trustedDependencies": [
+    "core-js"
+  ]
 }
