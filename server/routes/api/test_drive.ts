@@ -8,7 +8,13 @@ import config from "./config.json" assert {type: "json"}
 
 router.post("/", async function (req: Request, res: Response) {
     const url: string = req.body.url
-    const jobId = await models.Job.create({url: url})
+    let jobId
+    try {
+        jobId = await models.Job.create({url: url})
+    } catch (e) {
+        res.status(500).json({status: "error", error: "Error: URL too long"})
+        return
+    }
 
     let pollTime = 0
 
@@ -16,7 +22,8 @@ router.post("/", async function (req: Request, res: Response) {
     const poll = async () => {
         pollTime += config.TRY_POLLTIME_MS
         if (pollTime > config.TRY_TIMEOUT_MS) {
-            res.status(500).send()
+            res.status(500).json({status: "error", error: "Request timed out"})
+            return
         }
 
         let job = await sequelize.query<Job>(

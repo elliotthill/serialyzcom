@@ -7,12 +7,12 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "npm-run-all --parallel watch:tailwind watch:bun",
-        "watch:tailwind": "npx tailwindcss -i assets/css/style.css -o assets/css/output.css --watch",
+        "watch:tailwind": "bunx tailwindcss -i assets/css/style.css -o assets/css/output.css --watch",
         "watch:tsc": "tsc -w",
         "watch:bun": "bun build ./assets/js/index.tsx --outdir ./dist --watch",
         "watch:bunProd": "bun build --minify ./assets/js/index.tsx --outdir ./dist --watch",
         "pack": "bun build --minify ./assets/js/index.tsx --outdir ./dist",
-        "tailwind": "npx tailwindcss -i assets/css/style.css -o assets/css/output.css --minify"
+        "tailwind": "bunx tailwindcss -i assets/css/style.css -o assets/css/output.css --minify"
     },
     "author": "",
     "license": "ISC",

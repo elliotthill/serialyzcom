@@ -24,7 +24,7 @@ router.get("/", async (req: Request, res: Response) => {
     let requestedURL = new URLSearchParams(url.search).get("url")
 
     if (!requestedURL) {
-        res.status(500).send({status: "error", error: "Please provide a URL with the parameter ?url="})
+        res.status(500).json({status: "error", error: "Invalid URL supplied"})
         return
     }
     requestedURL = requestedURL.replace("%2", "/")
@@ -39,7 +39,8 @@ router.get("/", async (req: Request, res: Response) => {
     const poll = async () => {
         pollTime += config.TRY_POLLTIME_MS
         if (pollTime > config.TRY_TIMEOUT_MS) {
-            res.status(500).send()
+            res.status(500).json({status: "error", error: "Request timed out"})
+            return
         }
 
         let job = await sequelize.query<Job>(

@@ -1,8 +1,8 @@
 "use client"
 
-import React, { FormEvent, FormEventHandler, useState } from "react"
-import { Progress } from "flowbite-react"
-import { Codeblock } from "./components/codeblock.js"
+import React, {FormEvent, FormEventHandler, useState} from "react"
+import {Progress} from "flowbite-react"
+import {Codeblock} from "./components/codeblock.js"
 import Loading from "./components/loading.js"
 
 export function TestDrive() {
@@ -35,18 +35,25 @@ export function TestDrive() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ url })
+            body: JSON.stringify({url})
+        }).catch(e => {
+            setProgress(0)
+            clearInterval(pb)
+            setSubmitting(false)
+            setURLError(e)
+            return e
         })
+
+        const json = await response.json()
 
         if (response.status !== 200) {
             setProgress(0)
             clearInterval(pb)
             setSubmitting(false)
-            setURLError("Our crawler experienced a problem with this URL")
+            setURLError(json.error ? json.error : "Our crawler experienced a problem with this URL")
             return
         }
 
-        const json = await response.json()
         if (json) setOutput(JSON.stringify(json, null, 2))
         console.log(response)
         setSubmitting(false)
