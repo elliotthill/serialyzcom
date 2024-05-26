@@ -24,6 +24,7 @@ router.get("/", async (req: Request, res: Response) => {
         return
     }
 
+    console.log("WOrker pinged")
     // Select the next job AND marks it as processing in a transactional way
     // this is to avoid passing the same job to multiple workers
     const job = await sequelize.query<Job>(
@@ -56,6 +57,7 @@ router.post("/:jobId/return", async (req: Request, res: Response) => {
     const debugJson = JSON.stringify(req.body.debug)
 
     if (req.body.status && req.body.status === "error") {
+        console.log(req.body)
         await sequelize.query(`UPDATE job SET status='error', completed=NOW() WHERE id=:id`, {
             type: QueryTypes.UPDATE,
             replacements: {

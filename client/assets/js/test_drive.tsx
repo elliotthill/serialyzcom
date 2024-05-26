@@ -1,6 +1,6 @@
 "use client"
 
-import React, {FormEvent, FormEventHandler, useState} from "react"
+import React, {FormEvent, FormEventHandler, useEffect, useState} from "react"
 import {Progress} from "flowbite-react"
 import {Codeblock} from "./components/codeblock.js"
 import Loading from "./components/loading.js"
@@ -78,6 +78,16 @@ export function TestDrive() {
         }, 50)
         return progressInt
     }
+
+    useEffect(() => {
+        //Load other locations for this job
+        fetch("/api/jobs/locations")
+            .then(response => response.json())
+            .then(data => {
+                setAllLocationOptions(LocationOptions.concat(data))
+            })
+            .catch(error => console.error(error))
+    }, [])
 
     return (
         <div>
