@@ -53,21 +53,44 @@ export async function ViewTestDrive(req: Request, res: Response) {
 import crypto from "node:crypto"
 import {getReqIp} from "./utils/ip.js"
 import {createClient} from "redis"
-const FIVE_MNUTES = 60 * 5
+const ONE_MINUTE = 60 * 1
+const ONE_DAY = 60 * 60 * 24
+const ALLOWED_TEST_DRIVES_IN_PERIOD = 5
 
-export async function TestDriveToken(req: Request, res: Response) {
+///Returns true if ok, false if they are not allow to test drive
+async function CheckToken(req: Request): Promise<boolean> {
     const token = crypto.randomBytes(10)
 
     const ip = getReqIp(req)
     if (!ip) {
-        res.status(500).json({status: "error", error: "Could not create token"})
-        return
+        return false
     }
 
     const redisClient = createClient()
     await redisClient.connect()
 
-    await redisClient.set(ip, 1, {EX: FIVE_MNUTES})
+    /*
+     * Short term token check
+     */
+    const rateLimit = await redisClient.get(ip + "-rateLimit")
+    if (rateLimit) return false
+
+    await redisClient.set(ip + "-rateLimit", 1, {EX: ONE_MINUTE})
+
+    /**
+     * Long term token check - X allowed in 24 hours
+     * */
+    const value = await redisClient.get(ip)
+    console.log(value)
+    const testDrivesCount = parseInt(value || "0")
+    if (testDrivesCount >= ALLOWED_TEST_DRIVES_IN_PERIOD) {
+        await redisClient.disconnect()
+        return false
+    }
+
+    await redisClient.set(ip, testDrivesCount + 1, {EX: ONE_DAY})
+    await redisClient.disconnect()
+    return true
 }
 
 /**
@@ -81,6 +104,12 @@ export async function RequestTestDrive(req: Request, res: Response) {
         jobId = await models.Job.create({url: url})
     } catch (e) {
         res.status(500).json({status: "error", error: "Error: URL too long"})
+        return
+    }
+
+    const canUserTestDrive = await CheckToken(req)
+    if (!canUserTestDrive) {
+        res.status(500).json({status: "error", error: "You have exceeded the amount of free test drives"})
         return
     }
 

@@ -16,6 +16,7 @@ export const getReqIp = (req: Request) => {
     } else {
         //Probably on dev env
         ip = req.socket.remoteAddress
+        if (!ip) ip = req.headers["host"]
     }
 
     return ip

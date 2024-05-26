@@ -8,6 +8,4 @@ router.get("/latest-test-drives", LatestTestDrives)
 
 router.get("/:id", GetSingle)
 
-router.get("/token", TestDriveToken)
-
 export default router
