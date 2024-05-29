@@ -60,3 +60,19 @@ export const JobRequest = async (req: Request, res: Response) => {
 
     setTimeout(poll, config.TRY_START_POLL_MS)
 }
+
+/**
+ * Helper function to authenticate api keys and rate limit
+ */
+const authenticate = async (req: Request): Promise<boolean> => {
+    console.log(req.headers.authorization)
+    if (!req.headers.authorization) {
+        return false
+    }
+
+    // Do authorization here
+
+    // We may also want to do a domain based rate limit
+
+    return true
+}

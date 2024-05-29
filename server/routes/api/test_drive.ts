@@ -1,6 +1,6 @@
 import Router from "express-promise-router"
 const router = Router()
-import {TestDriveToken, RequestTestDrive, LatestTestDrives, GetSingle} from "server/controllers/test-drive.js"
+import {RequestTestDrive, LatestTestDrives, GetSingle} from "server/controllers/test-drive.js"
 
 router.post("/", RequestTestDrive)
 

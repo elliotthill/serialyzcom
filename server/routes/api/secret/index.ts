@@ -8,7 +8,7 @@ import {Job} from "../../../models/job.js"
 const router = Router()
 
 const authenticate = (req: Request): boolean => {
-    if (!req.headers.key || req.headers.key !== process.env.API_POLL_KEY) {
+    if (!req.headers.authorization || req.headers.authorization !== process.env.API_POLL_KEY) {
         return false
     }
     return true
@@ -24,7 +24,6 @@ router.get("/", async (req: Request, res: Response) => {
         return
     }
 
-    console.log("WOrker pinged")
     // Select the next job AND marks it as processing in a transactional way
     // this is to avoid passing the same job to multiple workers
     const job = await sequelize.query<Job>(

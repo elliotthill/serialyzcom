@@ -1,15 +1,15 @@
 import React from "react"
-import { Codeblock } from "./codeblock.js"
-import { timeAgo } from "../utils/time.js"
-import { Button } from "flowbite-react"
+import {Codeblock} from "./codeblock.js"
+import {timeAgo} from "../utils/time.js"
+import {Button} from "flowbite-react"
 
-export default function TestDriveThumbnail({ testDrives }) {
+export default function TestDriveThumbnail({testDrives}) {
     return (
         <>
             {testDrives.map(testDrive => {
                 return (
-                    <div className="md:px-4 lg:px-32" key={testDrive.id}>
-                        <div className="w-full px-8 py-4 my-12 bg-gray-100 rounded-lg shadow-md">
+                    <div className="md:px-4 lg:px-20 xl:px-40" key={testDrive.id}>
+                        <div className="w-full px-8 py-4 my-12 bg-gray-100 bg-slate-300 shadow-sm">
                             <div className="flex items-center justify-between">
                                 <span className="text-lg font-light text-gray-600">
                                     <b className="font-bold">Test Drive</b> {testDrive.url}
@@ -18,16 +18,39 @@ export default function TestDriveThumbnail({ testDrives }) {
                                     Anonymous User, {timeAgo(testDrive.completed)}
                                 </span>
                             </div>
-                            <div className="grid grid-cols-2 divide-x-[5px] py-4">
-                                <div className="pr-6">
-                                    <img
-                                        loading="lazy"
-                                        src={`https://serialyzr.s3.amazonaws.com/screenshots/${testDrive.id}.jpg`}
-                                    />
-                                    <span className="text-sm text-right float-right pt-2">URL screenshot</span>
+                            <div className="flex py-4">
+                                <div className="flex-none w-5/12 pr-6 overflow-y-hidden max-h-60">
+                                    <a href={`/test-drive/${testDrive.id}`}>
+                                        <img
+                                            className="inline-block w-full "
+                                            loading="lazy"
+                                            src={`https://serialyzr.s3.amazonaws.com/screenshots/${testDrive.id}.jpg`}
+                                        />
+
+                                        <div className="text-sm text-left float-left pt-2 block clear-both">
+                                            URL screenshot
+                                        </div>
+                                    </a>
                                 </div>
-                                <div className="pl-6">
-                                    <Codeblock code={testDrive.structure} lang="JSON" />
+
+                                <div className="flex-none w-1/12">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        className="stroke-grey-700 size-16 float-right mt-16"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="flex-none w-6/12 pl-6">
+                                    <a href={`/test-drive/${testDrive.id}`}>
+                                        <Codeblock code={testDrive.structure} lang="JSON" />
+                                    </a>
                                     <span className="text-sm text-right float-right pt-2">
                                         Structured data extracted -{" "}
                                         <a href={`/test-drive/${testDrive.id}`} className="underline">

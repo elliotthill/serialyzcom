@@ -45,6 +45,16 @@ input[type="number"]::-webkit-outer-spin-button {
 html {
     font-family: "Fira Sans", "Roboto", system-ui, sans-serif;
 }
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
 
 .text-gradient {
     color: transparent;
@@ -56,6 +66,18 @@ html {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparenttext;
 }
+
+.text-gradient-dark {
+    color: transparent;
+    background: linear-gradient(180deg, #36404e 0%, #4d87b4 100%);
+    line-height: 150%;
+    font-display: block;
+    letter-spacing: 0;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparenttext;
+}
+
 .block-gradient {
     overflow: hidden;
     background: linear-gradient(270deg, #356c76a8 0%, #121826c9 100%), url(/assets/images/noise.svg);
@@ -65,33 +87,11 @@ html {
 
 .block-gradient-light {
     overflow: hidden;
-    background: linear-gradient(270deg, #a3a3a3a8 0%, #8390acc9 100%), url(/assets/images/noise.svg);
+    background: linear-gradient(270deg, #554f4f6e 0%, #8390acc9 100%), url(/assets/images/noise.svg);
     border-top: 2px solid rgba(255, 255, 255, 0.1);
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .glass {
     opacity: 0.75;
-}
-
-/* width */
-::-webkit-scrollbar {
-    width: 20px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: rgb(200 208 219);
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: rgb(51 65 85);
-    background-clip: content-box;
-    border: 5px solid transparent;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }

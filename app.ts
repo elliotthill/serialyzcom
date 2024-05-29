@@ -53,20 +53,27 @@ app.use(cookieParser())
 let today = new Date()
 import {models, sequelize} from "./server/models/index.js"
 
-app.use(
-    session({
-        secret: process.env.COOKIE_SECRET,
-        cookie: {
-            expires: new Date(today.getFullYear() + 10, today.getMonth(), today.getDate())
-        },
-        store: new sequelizeStore({
-            db: sequelize,
-            checkExpirationInterval: 24 * 15 * 60 * 1000 // The interval at which to cleanup expired sessions in milliseconds.
-        }),
-        resave: false,
-        saveUninitialized: false
-    })
-)
+let sessionConfig = {
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+        secure: false,
+        expires: new Date(today.getFullYear() + 10, today.getMonth(), today.getDate())
+        //maxAge: 1000 * 60 * 60 * 24 * 365 * 10
+    },
+    store: new sequelizeStore({
+        db: sequelize,
+        checkExpirationInterval: 24 * 15 * 60 * 1000 // The interval at which to cleanup expired sessions in milliseconds.
+    }),
+    resave: false,
+    saveUninitialized: false
+}
+
+if (ENV === "production") {
+    app.set("trust proxy", 1) // trust first proxy
+    sessionConfig.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sessionConfig))
 
 app.use(passport.initialize())
 app.use(passport.session())

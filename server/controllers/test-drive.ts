@@ -109,7 +109,7 @@ export async function RequestTestDrive(req: Request, res: Response) {
 
     const canUserTestDrive = await CheckToken(req)
     if (!canUserTestDrive) {
-        res.status(500).json({status: "error", error: "You have exceeded the amount of free test drives"})
+        res.status(500).json({status: "error", error: "Requesting too fast, or exceeded free test drives"})
         return
     }
 
