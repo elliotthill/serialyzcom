@@ -12,7 +12,7 @@
         "watch:bun": "bun build ./assets/js/index.tsx --outdir ./dist --watch",
         "watch:bunProd": "bun build --minify ./assets/js/index.tsx --outdir ./dist --watch",
         "pack": "bun build --minify ./assets/js/index.tsx --outdir ./dist",
-        "tailwind": "bunx tailwindcss -i assets/css/style.css -o assets/css/output.css --minify"
+        "tailwind": "bun x tailwindcss -i assets/css/style.css -o assets/css/output.css --minify"
     },
     "author": "",
     "license": "ISC",
